@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portfolio.Models;
+using Portfolio.Servicios;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Portfolio.Controllers
 {
@@ -27,8 +29,20 @@ namespace Portfolio.Controllers
 
             //mando esa variable a mi vista,ya no es necesario pasarle el nombre de la vista Index
             //ViewBag.Edad = "36";
-            return View();
+
+            var repositorioProyectos = new RepositorioProyectos();
+
+            var proyectos= repositorioProyectos.obtenerProyectos().Take(3).ToList();
+            var modelo=new HomeIndexViewModel() { Proyectos=proyectos };
+            return View(modelo);
         }
+
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {
