@@ -9,10 +9,12 @@ namespace Portfolio.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly RepositorioProyectos repositorioProyectos;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger ,  RepositorioProyectos repositorioProyectos)
         {
             _logger = logger;
+            this.repositorioProyectos = repositorioProyectos;
         }
 
         public IActionResult Index()
@@ -30,7 +32,7 @@ namespace Portfolio.Controllers
             //mando esa variable a mi vista,ya no es necesario pasarle el nombre de la vista Index
             //ViewBag.Edad = "36";
 
-            var repositorioProyectos = new RepositorioProyectos();
+            //var repositorioProyectos = new RepositorioProyectos();
 
             var proyectos= repositorioProyectos.obtenerProyectos().Take(3).ToList();
             var modelo=new HomeIndexViewModel() { Proyectos=proyectos };
