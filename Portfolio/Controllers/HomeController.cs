@@ -9,12 +9,14 @@ namespace Portfolio.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly RepositorioProyectos repositorioProyectos;
+        private readonly IRepositorioProyectos repositorioProyectos;
+        
 
-        public HomeController(ILogger<HomeController> logger ,  RepositorioProyectos repositorioProyectos)
+        public HomeController(ILogger<HomeController> logger ,  IRepositorioProyectos repositorioProyectos)
         {
             _logger = logger;
             this.repositorioProyectos = repositorioProyectos;
+       
         }
 
         public IActionResult Index()
@@ -35,20 +37,21 @@ namespace Portfolio.Controllers
             //var repositorioProyectos = new RepositorioProyectos();
 
             var proyectos= repositorioProyectos.obtenerProyectos().Take(3).ToList();
-            var modelo=new HomeIndexViewModel() { Proyectos=proyectos };
+            
+            
+            var modelo=new HomeIndexViewModel() 
+            { 
+                Proyectos=proyectos
+            };
             return View(modelo);
         }
 
 
 
-
-
-
-
-
-        public IActionResult Privacy()
+        public IActionResult Proyectos()
         {
-            return View();
+            var proyectos = repositorioProyectos.obtenerProyectos().Take(3).ToList();
+            return View(proyectos);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -56,5 +59,24 @@ namespace Portfolio.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+    
+    
+        public IActionResult Contacto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contacto(ContactoViewModel contactoViewModel)
+        {
+            return RedirectToAction("Gracias");
+        }
+
+        public IActionResult Gracias()
+        {
+            return View();
+        }
+    
+    
     }
 }

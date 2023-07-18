@@ -4,7 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<RepositorioProyectos>();  //con esto tengo la clase RepositorioProyectos CONFIGURAADA PARA INYECCION DE DEPENDENCIAS
+builder.Services.AddTransient<IRepositorioProyectos, RepositorioProyectos>();  //con esto tengo la clase RepositorioProyectos CONFIGURAADA PARA INYECCION DE DEPENDENCIAS
+
+
 
 
 var app = builder.Build();

@@ -2,10 +2,23 @@
 
 namespace Portfolio.Servicios
 {
-    public class RepositorioProyectos
+
+
+
+    //definiendo una interfaz
+    public interface IRepositorioProyectos
+    {
+        List<Proyecto> obtenerProyectos();
+    }
+
+
+
+
+
+    public class RepositorioProyectos:IRepositorioProyectos
     {
 
-
+        
         public List<Proyecto> obtenerProyectos()
         {
             return new List<Proyecto>() {
